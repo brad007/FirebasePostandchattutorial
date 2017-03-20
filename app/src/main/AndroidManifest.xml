@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          package="com.getmore.getmoreapp.firebasepostandchattutorial">
+
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <application
+        android:name=".PostApplication"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name=".ui.activities.MainActivity"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+
+                <!--I'm going to place the following code into my main actiity
+                but you can place it in which ever activity you want to open your links with-->
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+
+                <!--the host will be the url you start your link with. You can make it whatever
+                you want as long as it's consistant -->
+                <data android:host="firebasetutorial.com"/>
+                <data android:scheme="https"/>
+                <data android:pathPattern=".*"/>
+            </intent-filter>
+        </activity>
+        <activity android:name=".ui.activities.RegisterActivity"/>
+        <activity android:name=".ui.activities.PostActivity"></activity>
+
+
+    </application>
+
+</manifest>
