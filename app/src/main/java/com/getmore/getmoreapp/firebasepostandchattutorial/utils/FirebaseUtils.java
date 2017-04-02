@@ -114,4 +114,10 @@ public class FirebaseUtils {
         return getPostRef().child(postId).child(Constants.NUM_SHARES_KEY);
     }
 
+    public static DatabaseReference getNotificationRef(){
+        return FirebaseDatabase.getInstance().getReference(Constants.NOTIFICATION_KEY).push();
+    }
+
+
+
 }

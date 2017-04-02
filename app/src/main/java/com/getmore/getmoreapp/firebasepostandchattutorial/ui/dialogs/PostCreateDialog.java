@@ -23,6 +23,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.firebase.storage.UploadTask;
 
 import static android.app.Activity.RESULT_OK;
@@ -131,6 +132,9 @@ public class PostCreateDialog extends DialogFragment implements View.OnClickList
     }
 
     private void addToMyPostList(final String postUid) {
+
+        //With this set, we'll be alerted to any activity that happens on your post
+        FirebaseMessaging.getInstance().subscribeToTopic(postUid);
         FirebaseUtils.getPostRef().child(postUid)
                 .setValue(mPost);
         FirebaseUtils.getMyPostRef().child(postUid).setValue(true)

@@ -18,6 +18,7 @@ import com.bumptech.glide.Glide;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.storage.images.FirebaseImageLoader;
 import com.getmore.getmoreapp.firebasepostandchattutorial.R;
+import com.getmore.getmoreapp.firebasepostandchattutorial.models.Notification;
 import com.getmore.getmoreapp.firebasepostandchattutorial.models.Post;
 import com.getmore.getmoreapp.firebasepostandchattutorial.ui.activities.PostActivity;
 import com.getmore.getmoreapp.firebasepostandchattutorial.ui.dialogs.PostCreateDialog;
@@ -94,6 +95,24 @@ public class HomeFragment extends Fragment {
                 viewHolder.postLikeLayout.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        //In the like post, we'll send a notification to everyone who's
+                        // subscribed to this post[This is a really bad implementation as you'd
+                        // probably notify the creator of this post but for the simplicity of
+                        // this tutorial we'll just build it as such
+
+                        Notification notifs = new Notification();
+                        notifs.setImageUrl(model.getUser().getPhotUrl());
+                        notifs.setEmail(model.getUser().getEmail());
+                        notifs.setUsername(model.getUser().getUser());
+                        //The uid and topic are the same. since the topic of this notification is
+                        // the postId of this post, any subscribed to this post will recieve this
+                        // notification
+                        notifs.setUid(model.getPostId());
+                        notifs.setTopic(model.getPostId());
+
+                        notifs.setText("The post was liked");
+
+                        FirebaseUtils.getNotificationRef().setValue(notifs);
                         onLikeClick(model.getPostId());
                     }
                 });
@@ -110,6 +129,22 @@ public class HomeFragment extends Fragment {
                 viewHolder.postShareLayout.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+
+                        Notification notifs = new Notification();
+                        notifs.setImageUrl(model.getUser().getPhotUrl());
+                        notifs.setEmail(model.getUser().getEmail());
+
+                        notifs.setUsername(model.getUser().getUser());
+                        //The uid and topic are the same. since the topic of this notification is
+                        // the postId of this post, any subscribed to this post will recieve this
+                        // notification
+                        notifs.setUid(model.getPostId());
+                        notifs.setTopic(model.getPostId());
+
+                        notifs.setText("The post was shared");
+
+                        FirebaseUtils.getNotificationRef().setValue(notifs);
+
                         onShareClick(model.getPostId());
 
                         Intent sendIntent = new Intent();

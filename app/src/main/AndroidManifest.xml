@@ -34,7 +34,12 @@
         <activity android:name=".ui.activities.RegisterActivity"/>
         <activity android:name=".ui.activities.PostActivity"></activity>
 
-
+        <service
+            android:name=".services.MyFirebaseMessagingService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+            </intent-filter>
+        </service>
     </application>
 
 </manifest>

@@ -31,7 +31,19 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
+/*
+Up until now, those of you who are watching everything you have done and seen so far is enough
+for youu to build notifications in your app. for the next part I'll be working on an app that
+I've built in a previous tutorial. if you'd like to watch further it's perfectly okay. but if
+you'd like to code along, you can download the code below in the description, I'll also leave a link
+to the pervious tutorials below
+ */
 
+/*
+So the notifications in this app will either be triggered when a user likes a post, or comments
+on a post, so let's do that, but we also need to be alerted when to any activity that we make on
+a post
+ */
 public class MainActivity extends BaseActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 

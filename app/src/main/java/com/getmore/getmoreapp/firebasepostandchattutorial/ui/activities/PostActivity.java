@@ -18,6 +18,7 @@ import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.storage.images.FirebaseImageLoader;
 import com.getmore.getmoreapp.firebasepostandchattutorial.R;
 import com.getmore.getmoreapp.firebasepostandchattutorial.models.Comment;
+import com.getmore.getmoreapp.firebasepostandchattutorial.models.Notification;
 import com.getmore.getmoreapp.firebasepostandchattutorial.models.Post;
 import com.getmore.getmoreapp.firebasepostandchattutorial.models.User;
 import com.getmore.getmoreapp.firebasepostandchattutorial.utils.Constants;
@@ -27,6 +28,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.MutableData;
 import com.google.firebase.database.Transaction;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
@@ -167,6 +169,24 @@ public class PostActivity extends AppCompatActivity implements View.OnClickListe
                                         FirebaseUtils.addToMyRecord(Constants.COMMENTS_KEY,uid);
                                     }
                                 });
+
+                        Notification notifs = new Notification();
+                        notifs.setImageUrl(user.getPhotUrl());
+                        notifs.setEmail(user.getEmail());
+                        notifs.setUsername(user.getUser());
+                        //The uid and topic are the same. since the topic of this notification is
+                        // the postId of this post, any subscribed to this post will recieve this
+                        // notification
+                        notifs.setUid(uid);
+                        notifs.setTopic(uid);
+
+                        notifs.setText("Your post was commented on");
+
+                        FirebaseUtils.getNotificationRef().setValue(notifs);
+
+                        FirebaseMessaging.getInstance().subscribeToTopic(uid);
+
+                        //And that's all folks! Notifications with firebase in a nutshell!
                     }
 
                     @Override
